@@ -13,7 +13,7 @@ from fastapi.templating import Jinja2Templates
 app = FastAPI(title="Employee Daily Work Tracker")
 templates = Jinja2Templates(directory="templates")
 
-FUNCTION_APP_URL: str = os.getenv("FUNCTION_APP_URL", "http://localhost:7071").rstrip("/")
+FUNCTION_APP_URL="https://vilvafunctionapp-d8gkefhxgrfsaue9.centralus-01.azurewebsites.net"
 
 
 @app.get("/", response_class=HTMLResponse)
