@@ -1,8 +1,7 @@
 """
 Employee Daily Work Tracker - Web App (FastAPI)
 
-LOCAL:  reads FUNCTION_APP_URL from environment variable
-AZURE:  fetches the Function App URL from Azure Key Vault at startup
+Reads FUNCTION_APP_URL directly from environment variables.
 """
 
 import os
@@ -14,32 +13,7 @@ from fastapi.templating import Jinja2Templates
 app = FastAPI(title="Employee Daily Work Tracker")
 templates = Jinja2Templates(directory="templates")
 
-FUNCTION_APP_URL: str = ""
-
-
-@app.on_event("startup")
-async def load_function_url():
-    global FUNCTION_APP_URL
-
-    keyvault_url = os.getenv("KEYVAULT_URL")
-
-    if keyvault_url:
-        try:
-            from azure.identity import DefaultAzureCredential
-            from azure.keyvault.secrets import SecretClient
-
-            secret_name  = os.getenv("SECRET_NAME", "FunctionAppUrl")
-            credential   = DefaultAzureCredential()
-            client       = SecretClient(vault_url=keyvault_url, credential=credential)
-            secret       = client.get_secret(secret_name)
-            FUNCTION_APP_URL = secret.value.rstrip("/")
-            print(f"[startup] Loaded Function URL from Key Vault -> {FUNCTION_APP_URL}")
-        except Exception as e:
-            print(f"[startup] Key Vault error: {e}")
-            FUNCTION_APP_URL = os.getenv("FUNCTION_APP_URL", "http://localhost:7071")
-    else:
-        FUNCTION_APP_URL = os.getenv("FUNCTION_APP_URL", "http://localhost:7071")
-        print(f"[startup] Local mode - Function App URL -> {FUNCTION_APP_URL}")
+FUNCTION_APP_URL: str = os.getenv("FUNCTION_APP_URL", "http://localhost:7071").rstrip("/")
 
 
 @app.get("/", response_class=HTMLResponse)
