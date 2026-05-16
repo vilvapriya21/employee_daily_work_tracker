@@ -1,0 +1,39 @@
+# Azure local settings (contains secrets - never commit)
+functionapp/local.settings.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Azurite local storage (created when running locally)
+functionapp/__blobstorage__/
+functionapp/__queuestorage__/
+functionapp/__tablestorage__/
+__blobstorage__/
+__queuestorage__/
+__tablestorage__/
+.python_packages/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# JSON data files (generated at runtime, not source code)
+functionapp/employee_logs.json
+functionapp/summary.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
