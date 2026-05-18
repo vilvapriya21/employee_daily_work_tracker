@@ -345,18 +345,18 @@
 
         if (res.ok && !json.error) {
           alert.className       = 'alert-success';
-          alert.textContent     = json.message || '✅ Work log submitted successfully!';
+          alert.textContent     = json.message || 'Work log submitted successfully!';
           alert.style.display   = 'block';
           e.target.reset();
           document.getElementById('hours_worked').value = '0';
         } else {
           alert.className     = 'alert-error';
-          alert.textContent   = '❌ ' + (json.error || json.message || 'Something went wrong.');
+          alert.textContent   = (json.error || json.message || 'Something went wrong.');
           alert.style.display = 'block';
         }
       } catch (err) {
         alert.className     = 'alert-error';
-        alert.textContent   = '❌ Network error: ' + err.message;
+        alert.textContent   = 'Network error: ' + err.message;
         alert.style.display = 'block';
       } finally {
         btn.disabled    = false;
@@ -379,7 +379,7 @@
         const json = await res.json();
 
         if (!res.ok || json.error) {
-          errEl.textContent   = '❌ ' + (json.error || 'Could not load summary.');
+          errEl.textContent   = (json.error || 'Could not load summary.');
           errEl.style.display = 'block';
           return;
         }
@@ -412,7 +412,7 @@
         panel.style.display = 'block';
 
       } catch (err) {
-        errEl.textContent   = '❌ Network error: ' + err.message;
+        errEl.textContent   = 'Network error: ' + err.message;
         errEl.style.display = 'block';
       } finally {
         loading.style.display = 'none';
